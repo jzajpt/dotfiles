@@ -1,156 +1,146 @@
-" Specify a directory for plugins
-call plug#begin('~/.vim/plugged')
-
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim'
-
-Plug 'Shougo/defx.nvim', { 'do': ':UpdateRemotePlugins' }
-
-" The fancy start screen for Vim.
-Plug 'mhinz/vim-startify'
-
-"  True Sublime Text style multiple selections for Vim
-" Plug 'terryma/vim-multiple-cursors'
-
-" A solid language pack for Vim.
-Plug 'sheerun/vim-polyglot'
-
-" Ruby, Bundler, Rails & friends
-Plug 'vim-ruby/vim-ruby'
-Plug 'tpope/vim-bundler'
-Plug 'tpope/vim-rake'
-Plug 'tpope/vim-rails'
-Plug 'tpope/vim-dadbod'
-Plug 'tpope/vim-rbenv'
-
-
-" Defaults everyone can agree on
-Plug 'tpope/vim-sensible'
-
-" Quoting/parenthesizing made simple
-Plug 'tpope/vim-surround'
-Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-endwise'
-Plug 'tpope/vim-sleuth'
-Plug 'tpope/vim-vinegar'
-Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-projectionist'
-
-" Helpers for UNIX
-Plug 'tpope/vim-eunuch'
-
-" Vim plugin, insert or delete brackets, parens, quotes in pair
-Plug 'jiangmiao/auto-pairs'
-
-" Auto close (X)HTML tags
-Plug 'alvan/vim-closetag'
-
-" HTML5 omnicomplete and syntax
-Plug 'othree/html5.vim'
-
-Plug 'airblade/vim-gitgutter'
-
-" EditorConfig plugin for Vim
-Plug 'editorconfig/editorconfig-vim'
-
-Plug 'neoclide/coc.nvim', { 'branch': 'release' }
-
-" Show a diff using Vim its sign column.
-Plug 'mhinz/vim-signify'
-set updatetime=100
-
-" Find And Replace Vim plugin
-Plug 'brooth/far.vim'
-
-" A Vim alignment plugin
-Plug 'junegunn/vim-easy-align'
-
-" Start interactive EasyAlign in visual mode (e.g. vipga)
-xmap ga <Plug>(EasyAlign)
-
-" Start interactive EasyAlign for a motion/text object (e.g. gaip)
-nmap ga <Plug>(EasyAlign)
-
-" A light and configurable statusline/tabline plugin for Vim
-Plug 'itchyny/lightline.vim'
-
-" HTML from CSS
-" Plug 'mattn/emmet-vim'
-
-" Adds file type icons to Vim plugins
-Plug 'ryanoasis/vim-devicons'
-
-" asynchronously displaying the colours in the file
-" Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }
-
-
-" Color schemes
-Plug 'rakr/vim-one'
-Plug 'drewtempelmeyer/palenight.vim'
-Plug 'mhinz/vim-janah'
-Plug 'patstockwell/vim-monokai-tasty'
-
-" Initialize plugin system
-call plug#end()
-
-" Remove trailing whitespace before saving and keep cursor in place
-function! <SID>StripTrailingWhitespaces()
-    let l = line(".")
-    let c = col(".")
-    %s/\s\+$//e
-    call cursor(l, c)
-endfun
-autocmd BufWritePre * :call <SID>StripTrailingWhitespaces()
+lua require('plugins')
+lua require('config')
 
 set nocompatible
 
-nnoremap <C-P> :Files<CR>
-
-set background=dark
-colorscheme one
-
-let g:one_allow_italics=1
-let g:lightline = { 'colorscheme': 'one' }
-
-"Credit joshdick
-"Use 24-bit (true-color) mode in Vim/Neovim when outside tmux.
-"If you're using tmux version 2.2 or later, you can remove the outermost $TMUX check and use tmux's 24-bit color support
-"(see < http://sunaku.github.io/tmux-24bit-color.html#usage > for more information.)
-  if (has("nvim"))
-  "For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
-  let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-  endif
-  "For Neovim > 0.1.5 and Vim > patch 7.4.1799 < https://github.com/vim/vim/commit/61be73bb0f965a895bfb064ea3e55476ac175162 >
-  "Based on Vim patch 7.4.1770 (`guicolors` option) < https://github.com/vim/vim/commit/8a633e3427b47286869aa4b96f2bfc1fe65b25cd >
-  " < https://github.com/neovim/neovim/wiki/Following-HEAD#20160511 >
-  if (has("termguicolors"))
-    set termguicolors
-  endif
-
+" Print the line number in front of each line.
 set number
+
+" have a fixed column for the diagnostics to appear in
+" this removes the jitter when warnings/errors flow in
+set signcolumn=yes
+
 set autowrite
+
+" When 'confirm' is on, certain operations that would normally
+" fail because of unsaved changes to a buffer, e.g. ":q" and ":e",
+" instead raise a |dialog| asking if you wish to save the current
+" file(s).
 set confirm
 
+" Enable the use of mouse in all modes
 set mouse=a
+
+" Maximum width of text that is being inserted.  A longer line will be
+" broken after white space to get this width.
 set textwidth=80
 
+"  variant of "unnamed" flag which uses the clipboard
+" register '+' (|quoteplus|) instead of register '*' for
+" all operations except yank.  Yank shall copy the text
+" into register '+' and also into '*' when "unnamed" is
+" included.
 set clipboard+=unnamedplus
 
-" Always show the signcolumn, otherwise it would shift the text each tima
-" diagnostics appear/become resolved.
-if has("patch-8.1.1564")
-  " Recently vim can merge signcolumn and number column into one
-  set signcolumn=number
-else
-  set signcolumn=yes
-endif
+" Remove trailing whitespace before saving and keep cursor in place
+function! <SID>StripTrailingWhitespaces()
+	let l = line(".")
+	let c = col(".")
+	%s/\s\+$//e
+	call cursor(l, c)
+endfun
+autocmd BufWritePre * :call <SID>StripTrailingWhitespaces()
 
-" Endwise
-" disable mapping to not break coc.nvim (I don't even use them anyways)
-let g:endwise_no_mappings = 1
+" Enables 24-bit RGB color in the |TUI|.  Uses "gui" |:highlight|
+" attributes instead of "cterm" attributes. |highlight-guifg|
+" Requires an ISO-8613-3 compatible terminal.
+set termguicolors
 
-source $HOME/.config/nvim/plug-config/coc.vim
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Plugin configuration section
 
-" FZF
-let g:fzf_buffers_jump = 1
+" Dashboard
+let g:dashboard_default_executive ='telescope'
+
+" completion-nvim: recommended settings
+inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
+" Set completeopt to have a better completion experience
+set completeopt=menuone,noinsert,noselect
+
+" Avoid showing message extra message when using completion
+set shortmess+=c
+
+
+" Vsnip:
+
+" Expand
+imap <expr> <C-j>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-j>'
+smap <expr> <C-j>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-j>'
+
+" Expand or jump
+imap <expr> <C-l>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
+smap <expr> <C-l>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
+
+" Jump forward or backward
+imap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
+smap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
+imap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
+smap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
+
+" Select or cut text to use as $TM_SELECTED_TEXT in the next snippet.
+" See https://github.com/hrsh7th/vim-vsnip/pull/50
+nmap        s   <Plug>(vsnip-select-text)
+xmap        s   <Plug>(vsnip-select-text)
+nmap        S   <Plug>(vsnip-cut-text)
+xmap        S   <Plug>(vsnip-cut-text)
+
+" If you want to use snippet for multiple filetypes, you can `g:vsnip_filetypes` for it.
+let g:vsnip_filetypes = {}
+let g:vsnip_filetypes.javascriptreact = ['javascript']
+let g:vsnip_filetypes.typescriptreact = ['typescript']
+
+" Use Neoformat to automatically format files on save
+autocmd BufWrite *.rs :Autoformat
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Key bindings section
+
+" Shortcuts for nvim-tree
+nnoremap <C-n> :NvimTreeToggle<CR>
+nnoremap <leader>r :NvimTreeRefresh<CR>
+nnoremap <leader>n :NvimTreeFindFile<CR>
+
+
+" Telescope keybindings
+nnoremap <leader>ff <cmd>Telescope find_files<cr>
+nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+nnoremap <leader>fb <cmd>Telescope buffers<cr>
+nnoremap <leader>fh <cmd>Telescope help_tags<cr>
+
+" Crates.nvim
+nnoremap <silent> <leader>vt :lua require('crates').toggle()<cr>
+nnoremap <silent> <leader>vr :lua require('crates').reload()<cr>
+nnoremap <silent> <leader>vu :lua require('crates').update_crate()<cr>
+vnoremap <silent> <leader>vu :lua require('crates').update_crates()<cr>
+nnoremap <silent> <leader>va :lua require('crates').update_all_crates()<cr>
+nnoremap <silent> <leader>vU :lua require('crates').upgrade_crate()<cr>
+vnoremap <silent> <leader>vU :lua require('crates').upgrade_crates()<cr>
+nnoremap <silent> <leader>vA :lua require('crates').upgrade_all_crates()<cr>
+
+" LSPsaga
+nnoremap <silent> gh <cmd>lua require'lspsaga.provider'.lsp_finder()<CR>
+
+nnoremap <silent><leader>ca :Lspsaga code_action<CR>
+vnoremap <silent><leader>ca :<C-U>Lspsaga range_code_action<CR>
+
+nnoremap <silent>gr <cmd>lua require('lspsaga.rename').rename()<CR>
+nnoremap <silent> K <cmd>lua require('lspsaga.hover').render_hover_doc()<CR>
+nnoremap <silent> gs <cmd>lua require('lspsaga.signaturehelp').signature_help()<CR>
+nnoremap <silent> gd <cmd>lua require'lspsaga.provider'.preview_definition()<CR>
+
+" float terminal also you can pass the cli command in open_float_terminal function
+nnoremap <silent> <A-d> <cmd>lua require('lspsaga.floaterm').open_float_terminal()<CR>
+tnoremap <silent> <A-d> <C-\><C-n>:lua require('lspsaga.floaterm').close_float_terminal()<CR>
+
+
+" Trouble.nvim
+nnoremap <leader>xx <cmd>TroubleToggle<cr>
+nnoremap <leader>xw <cmd>TroubleToggle lsp_workspace_diagnostics<cr>
+nnoremap <leader>xd <cmd>TroubleToggle lsp_document_diagnostics<cr>
+nnoremap <leader>xq <cmd>TroubleToggle quickfix<cr>
+nnoremap <leader>xl <cmd>TroubleToggle loclist<cr>
+nnoremap gR <cmd>TroubleToggle lsp_references<cr>
 

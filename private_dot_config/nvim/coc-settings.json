@@ -1,5 +1,0 @@
-{
-				"solargraph.useBundler": true,
-				"solargraph.diagnostics": true,
-				"python.linting.pylintPath": "/home/jz/.pyenv/shims/pylint"
-}
