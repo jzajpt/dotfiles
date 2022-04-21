@@ -161,11 +161,6 @@ _G.packer_plugins = {
     path = "/home/jz/.local/share/nvim/site/pack/packer/start/plenary.nvim",
     url = "https://github.com/nvim-lua/plenary.nvim"
   },
-  ["popup.nvim"] = {
-    loaded = true,
-    path = "/home/jz/.local/share/nvim/site/pack/packer/start/popup.nvim",
-    url = "https://github.com/nvim-lua/popup.nvim"
-  },
   ["rust-tools.nvim"] = {
     loaded = true,
     path = "/home/jz/.local/share/nvim/site/pack/packer/start/rust-tools.nvim",
@@ -192,6 +187,16 @@ _G.packer_plugins = {
     path = "/home/jz/.local/share/nvim/site/pack/packer/start/vim-autoformat",
     url = "https://github.com/vim-autoformat/vim-autoformat"
   },
+  ["vim-dadbod"] = {
+    loaded = true,
+    path = "/home/jz/.local/share/nvim/site/pack/packer/start/vim-dadbod",
+    url = "https://github.com/tpope/vim-dadbod"
+  },
+  ["vim-dadbod-ui"] = {
+    loaded = true,
+    path = "/home/jz/.local/share/nvim/site/pack/packer/start/vim-dadbod-ui",
+    url = "https://github.com/kristijanhusak/vim-dadbod-ui"
+  },
   ["vim-eunuch"] = {
     loaded = true,
     path = "/home/jz/.local/share/nvim/site/pack/packer/start/vim-eunuch",
@@ -202,10 +207,20 @@ _G.packer_plugins = {
     path = "/home/jz/.local/share/nvim/site/pack/packer/start/vim-just",
     url = "https://github.com/NoahTheDuke/vim-just"
   },
+  ["vim-rails"] = {
+    loaded = true,
+    path = "/home/jz/.local/share/nvim/site/pack/packer/start/vim-rails",
+    url = "https://github.com/tpope/vim-rails"
+  },
   ["vim-ripgrep"] = {
     loaded = true,
     path = "/home/jz/.local/share/nvim/site/pack/packer/start/vim-ripgrep",
     url = "https://github.com/jremmen/vim-ripgrep"
+  },
+  ["vim-slim"] = {
+    loaded = true,
+    path = "/home/jz/.local/share/nvim/site/pack/packer/start/vim-slim",
+    url = "https://github.com/slim-template/vim-slim"
   },
   ["vim-terraform"] = {
     loaded = true,
@@ -242,5 +257,6 @@ if should_profile then save_profiles() end
 end)
 
 if not no_errors then
+  error_msg = error_msg:gsub('"', '\\"')
   vim.api.nvim_command('echohl ErrorMsg | echom "Error in packer_compiled: '..error_msg..'" | echom "Please check your config for correctness" | echohl None')
 end

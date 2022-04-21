@@ -25,6 +25,12 @@ set mouse=a
 " broken after white space to get this width.
 set textwidth=80
 
+set tabstop=2       " number of visual spaces per TAB
+set softtabstop=2   " number of spaces in tab when editing
+set shiftwidth=2    " number of spaces to use for autoindent
+set expandtab       " tabs are space
+
+
 "  variant of "unnamed" flag which uses the clipboard
 " register '+' (|quoteplus|) instead of register '*' for
 " all operations except yank.  Yank shall copy the text

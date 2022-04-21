@@ -124,5 +124,15 @@
 
 	-- Justfile support
 	use 'NoahTheDuke/vim-just'
+
+	-- Slim template syntax highlight
+	use 'slim-template/vim-slim'
+
+	-- Ruby on Rails support
+	use 'tpope/vim-rails'
+
+	-- Database
+	use { 'tpope/vim-dadbod' }
+	use { 'kristijanhusak/vim-dadbod-ui' }
 end)
 
